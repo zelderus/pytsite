@@ -110,10 +110,10 @@ class ZeResponse:
 	def addScriptStr(self, scriptStr):
 		self.headScriptText += scriptStr 
 
-	# добавление стиля ссылки (НЕ ИСПОЛЬЗУЕТСЯ)
+	# добавление стиля ссылки
 	def addStyle(self, styleLink):
 		self.styleLinks.push(scriptLink)
-	# добавление скрипта ссылки (НЕ ИСПОЛЬЗУЕТСЯ)
+	# добавление скрипта ссылки
 	def addScript(self, scriptLink):
 		self.scriptLinks.push(scriptLink)
 
@@ -128,11 +128,17 @@ class ZeResponse:
 		content += "<title>"+ self.headTitle +"</title>"
 		content += "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>"
 		content += "<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>"
+		# TODO: metas
 
+		# css
+		for styleLink in self.styleLinks:
+			content += "<link href='/Content/"+styleLink+"' media='screen' rel='stylesheet'>"
 		content += "<link href='/Content/site.css' media='screen' rel='stylesheet'>"
+		# js
 		content += "<script src='/Content/jquery.js'></script>"
 		content += "<script src='/Content/site.js'></script>"
-
+		for scriptLink in self.scriptLinks:
+			content += "<script src='/Content/"+scriptLink+"'></script>"
 		content += "<style type='text/css'>"+self.headStylesText+"</style>"
 		content += "<script type='text/javascript'>$(function () {"
 		content += self.headScriptText

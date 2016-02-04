@@ -1,6 +1,6 @@
 
 
-import zetypes
+import Objects.zetypes as zetypes
 
 
 
@@ -18,3 +18,8 @@ class ZeController:
 
 	def getResponse(self):
 		return self.response
+
+
+
+	def show(self):
+		self.getResponse().write("empty")

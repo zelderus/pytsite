@@ -1,0 +1,6 @@
+# маршруты с привязкой к контроллеру
+# {url} {ControllerName} {ActionName}
+
+
+/ BaseController show
+/test TestController show

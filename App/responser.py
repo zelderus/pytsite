@@ -1,7 +1,20 @@
-import zetypes
-import sitetypes
+import Objects.zetypes as zetypes
+import Objects.sitetypes as sitetypes
 import os
 import sys, errno
+
+
+
+from Controllers import *
+#import Controllers as cts
+#from Controllers import Controllers
+#import Controllers.BaseController as bcont
+
+#from os.path import dirname, basename, isfile
+#import glob
+#modules = glob.glob(dirname(os.path.abspath(__file__))+"/Controllers"+"/*.py")
+#moduleNames = [ "Controllers."+basename(f)[:-3] for f in modules if isfile(f)]
+#mdls = map(__import__, moduleNames)
 
 
 
@@ -17,6 +30,9 @@ def readFile(fileName):
 	return cnt
 
 
+def isNotNull(value):
+	return value is not None and len(value) > 0
+
 
 
 #
@@ -25,11 +41,12 @@ def readFile(fileName):
 def createResponseHtml(serverWithoutFile, response, request):
 	appPath = os.path.dirname(os.path.abspath(__file__))
 
-	response.setTitle("ZeSite. Работа с Расберри")
+	response.setTitle("ZeSite")
 	###
 	# routing
 	###
-	controller = sitetypes.ZeController(request, response)
+	controller = 0 #sitetypes.ZeController(request, response)
+	controllerName = ""
 	path = request.getPath()
 
 
@@ -58,18 +75,37 @@ def createResponseHtml(serverWithoutFile, response, request):
 
 
 
-	# PAGES
-	if path == "/": 
-		response.write("<h1>Main page</h1>")
+	# PAGES (from file 'routes')
+	with open(appPath + "/Configs/routes", 'r') as routesFile:
+			fcc = routesFile.readlines()
+			for fline in fcc:
+				if isNotNull(fline) == True and fline.startswith("#") == False:
+					pp = fline.split(" ")
+					if len(pp) >= 2 and path == pp[0]:
+						controllerName = pp[1].replace("\n", "")
+
+
+
+	# create controller
+	if controllerName:
+		klass = globals()[controllerName]
+		controller = klass(request, response)
+	# 404
+	if controller == 0:
+		response.error404()
 		return
 
-	if path == "/test": 
-		response.write("<h1>Test page</h1>")
-		return
 
 
 
 
-	# отдаем 404 если не обработали
-	response.error404()
-	return response
+	# VIEW
+	# TODO: action name
+	controller.show()
+
+
+
+
+
+
+	return response # УСТАРЕЛО (по факту возвращаемое значение не используется более)

@@ -2,7 +2,7 @@
 import sys
 import os
 import requester
-import zetypes
+import Objects.zetypes as zetypes
 import responser
 import sys, errno
 
@@ -40,7 +40,7 @@ def main():
 	response.setRequest(request)
 
 	# content
-	resp = responser.createResponseHtml(serverWithoutFile, response, request)
+	respDeprecatedVar = responser.createResponseHtml(serverWithoutFile, response, request)
 	content = response.buildHttpResponse()
 
 

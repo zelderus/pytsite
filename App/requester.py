@@ -4,7 +4,7 @@ import os
 import re
 import lxml
 from lxml import html
-import zetypes
+import Objects.zetypes as zetypes
 import io
 from urllib.parse import urlparse
 
