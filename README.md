@@ -27,6 +27,6 @@ zex (nginx) -> zesap -> pytsite
 - Контроллеры прописываются в файле 'Controllers/__init.py__'
 - Добавляются маршруты в файл 'Configs/routes'
 - Вьюшки кладутся в 'Views/{controllername}/{actionname}.zr.html' (название Контроллера без слова 'Controller' на конце)
-- Во вьюшках можно использовать значение из моделей '<div>SomeValue = @{value1}</div>'
+- Во вьюшках можно использовать значение из моделей 'SomeValue = @{value1}'
 
 
