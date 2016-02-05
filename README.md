@@ -17,6 +17,22 @@ zex (nginx) -> zesap -> pytsite
 Настройка
 --------
 - zex (nginx): слушает UNIX-сокет от zesap
+пример конфига ngix
+>upstream backend {
+>    server unix:/var/tmp/zesap.sock;
+>}
+>
+>server {
+>   listen 3542;
+>   server_name localhost;
+>   location ~* \.(js|jpg|png|css|ico)$ {
+>        root /home/zelder/Projects/Zexes/pytsite/App/;
+>    }
+>   location / {
+>      proxy_pass http://backend;
+>   }
+>}
+
 - zesap: подменяет свой же процесс, запуском кода. Указывается скрипт питона 'main.py' (/home/zelder/Projects/Zexes/pytsite/App/main.py)
 
 
