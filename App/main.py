@@ -37,6 +37,7 @@ def main():
 
 	# ответl
 	response = zetypes.ZeResponse();
+	response.setAppPath(os.path.dirname(os.path.abspath(__file__)))	# root path (from main)
 	response.setRequest(request)
 
 	# content

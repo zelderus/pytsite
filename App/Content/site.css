@@ -1,2 +1,16 @@
 
-body { margin: 0;}
+body { margin: 0; padding: 20px;}
+
+
+.navi { margin: 10px 0; padding-bottom: 10px; border-bottom: 1px dotted #aaa; color:#666;}
+.navi .link {}
+.navi a { display: inline-block; margin: 0 5px;}
+
+
+.code {color:#000;background-color: #eee; padding: 10px;}
+.code .def {font-weight:bold; color:#00B8F5;}
+.code .fnname {font-weight:bold; color:#003DF5;}
+.code .fnpar {color:#C29100;}
+.code .comment {color:#888;}
+.code .self {color:#00A4DB;}
+.code .text {color:#29A352;}

@@ -2,7 +2,7 @@ import Objects.zetypes as zetypes
 import Objects.sitetypes as sitetypes
 import os
 import sys, errno
-
+import zehelpers
 
 
 from Controllers import *
@@ -30,16 +30,13 @@ def readFile(fileName):
 	return cnt
 
 
-def isNotNull(value):
-	return value is not None and len(value) > 0
-
 
 
 #
 #	Движок сайта
 #
 def createResponseHtml(serverWithoutFile, response, request):
-	appPath = os.path.dirname(os.path.abspath(__file__))
+	appPath = response.getAppPath() #os.path.dirname(os.path.abspath(__file__))
 
 	response.setTitle("ZeSite")
 	###
@@ -47,6 +44,7 @@ def createResponseHtml(serverWithoutFile, response, request):
 	###
 	controller = 0 #sitetypes.ZeController(request, response)
 	controllerName = ""
+	actionName = "show"
 	path = request.getPath()
 
 
@@ -79,17 +77,24 @@ def createResponseHtml(serverWithoutFile, response, request):
 	with open(appPath + "/Configs/routes", 'r') as routesFile:
 			fcc = routesFile.readlines()
 			for fline in fcc:
-				if isNotNull(fline) == True and fline.startswith("#") == False:
+				if zehelpers.isNotNull(fline) == True and fline.startswith("#") == False:
 					pp = fline.split(" ")
-					if len(pp) >= 2 and path == pp[0]:
+					if len(pp) >= 3 and path == pp[0]:
 						controllerName = pp[1].replace("\n", "")
-
+						actionName = pp[2].replace("\n", "").lower()
 
 
 	# create controller
 	if controllerName:
-		klass = globals()[controllerName]
-		controller = klass(request, response)
+		try:
+			klass = globals()[controllerName]
+			controller = klass(request, response)
+		except KeyError as e:
+			print(e)
+			response.error500("Ошибка построения контроллера: " + str(e))
+			return
+		
+
 	# 404
 	if controller == 0:
 		response.error404()
@@ -97,13 +102,22 @@ def createResponseHtml(serverWithoutFile, response, request):
 
 
 
-
-
 	# VIEW
-	# TODO: action name
-	controller.show()
-
-
+	# check action name
+	actionName = actionName.lower()
+	if (actionName == "view"):
+		esponse.error500("Ошибка в названии Action '" + actionName + "', нельзя использовать как имя действия.")
+		return
+	action = None
+	try:
+		action = getattr(controller, actionName)
+	except AttributeError as e:
+		print(e)
+		response.error500("Ошибка построения действия котроллера: " + str(e))
+		return
+	# Action Do
+	if action:
+		action()
 
 
 

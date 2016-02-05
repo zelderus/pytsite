@@ -17,10 +17,11 @@ class TestController(sitetypes.ZeController):
 	def show(self):
 		response = self.getResponse()
 		request = self.getRequest()
-
-
-		p1 = request.getParam("p1")
-
+		# title
 		response.setTitle("ZeSite. Test")
-		response.write("<h1>Test page</h1>")
-		response.write("<div>P1="+p1+"</div>")
+		# get param
+		p1 = request.getParam("p1")
+		# show
+		self.view("show", dict(p1=p1, modelVal1="just simple"))
+
+

@@ -17,12 +17,21 @@ class BaseController(sitetypes.ZeController):
 	def show(self):
 		response = self.getResponse()
 		request = self.getRequest()
-
-
-		p1 = request.getParam("p1")
-
 		response.setTitle("ZeSite")
-		response.write("<h1>Main page</h1>")
-		response.write("<div>P1="+p1+"</div>")
+		self.view("show")
+		
 
+
+	def help(self):
+		response = self.getResponse()
+		request = self.getRequest()
+		response.setTitle("ZeSite. Help")
+		self.view("help")
+
+
+	def about(self):
+		response = self.getResponse()
+		request = self.getRequest()
+		response.setTitle("ZeSite. About")
+		self.view("about")
 

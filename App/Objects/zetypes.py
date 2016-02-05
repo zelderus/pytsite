@@ -1,5 +1,6 @@
 from cgi import parse_qs, escape
 import datetime
+import os
 
 
 class ZeRequest:
@@ -41,6 +42,8 @@ class ZeResponse:
 	def __init__(self):
 		self.request = [] #zetypes.ZeRequest
 		self.selfContent = False
+		self.appPath = os.path.dirname(os.path.abspath(__file__))
+		self.isError = False
 		# response header
 		self.httpVer = "HTTP/1.1"
 		self.status = "200 OK"
@@ -68,17 +71,34 @@ class ZeResponse:
 		return self.content
 
 	def write(self, htmlStr):
-		self.body += htmlStr 
+		if self.isError == False and htmlStr != None:
+			self.body += htmlStr 
 
+	def setAppPath(self, path):
+		self.appPath = path
+	def getAppPath(self):
+		return self.appPath
 
 	def error404(self):
 		self.status = "404 Not Found"
 		self.setTitle("Страница не найдена")
+		self.body = ""
 		self.write("<div style='margin: 60px 0; text-align: center;'>")
 		self.write("<h1>404</h1>")
 		self.write("<div>страница не найдена..</div>")
 		self.write("</div>")
+		self.isError = True
 
+	def error500(self, msg):
+		self.status = "500 Server Error"
+		self.setTitle("Ошибка выполнения")
+		self.body = ""
+		self.write("<div style='margin: 60px 0; text-align: center;'>")
+		self.write("<h1>500</h1>")
+		self.write("<div>Ошибка выполнения</div>")
+		self.write("<div style='color:#CC3300;'>"+msg+"</div>") # TODO: enable debug????
+		self.write("</div>")
+		self.isError = True
 
 	def setContentAsScript(self):
 		self.contentType = "application/x-javascript"

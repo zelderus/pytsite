@@ -1,0 +1,39 @@
+
+
+<h1>Test page</h1>
+
+<div class="navi">
+	<a href="/">Main</a>
+#	<a href="/help">Help</a>
+	<a href="/test?p1=12345">Test1</a>
+</div>
+
+<div>this is simple text..</div>
+<div>this is QueryParam (p1) = <b>@{p1}</b></div>
+<div>this is Simple value from Model = <b>@{modelVal1}</b></div>
+
+
+
+<h3>Пример Метода-Действия (Action)</h3>
+<div class="code" style="margin: 5px 0; padding: 20px;">
+	<div><span class='def'>def</span> <span class='fnname'>show</span>(<span class='fnpar'>self</span>):</div>
+		<div style="margin: 0 0 0 10px;">
+			<div>response = <span class='self'>self</span>.getResponse()</div>
+			<div>request = <span class='self'>self</span>.getRequest()</div>
+			<div><span class='comment'># title</span></div>
+			<div>response.setTitle("<span class='text'>ZeSite. Test</span>")</div>
+			<div><span class='comment'># get param</span></div>
+			<div>p1 = request.getParam("<span class='text'>p1</span>")</div>
+			<div><span class='comment'># show</span></div>
+			<div><span class='self'>self</span>.view("<span class='text'>show</span>", dict(p1=p1, modelVal1="<span class='text'>just simple</span>"))</div>
+		</div>
+</div>
+
+<h3>Пример Вьюшки (View)</h3>
+<div class="code" style="margin: 5px 0; padding: 20px;">
+	<textarea style='width:700px; height:100px; resize: none; background-color: #eee; border:none;outline: none;' disabled='disabled'>
+<div>this is simple text..</div>
+<div>this is QueryParam (p1) = <b>@{ p1 }</b></div>
+<div>this is Simple value from Model = <b>@{ modelVal1 }</b></div>
+	</textarea>
+</div>

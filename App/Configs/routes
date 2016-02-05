@@ -3,4 +3,7 @@
 
 
 / BaseController show
+/help BaseController help
+/about BaseController about
+
 /test TestController show
