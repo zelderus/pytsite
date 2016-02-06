@@ -2,8 +2,6 @@
 import sys
 import os
 import re
-import lxml
-from lxml import html
 import Objects.zetypes as zetypes
 import io
 from urllib.parse import urlparse
