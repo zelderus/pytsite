@@ -13,10 +13,10 @@ class ZeRequest:
 
 	def setHeaders(self, headers):
 		self.headers = headers
-	def getHead(self, headKey):
+	def getHead(self, headKey, defaultVal=""):
 		if headKey in self.headers:
 			return self.headers[headKey]
-		return ""
+		return defaultVal
 
 	def setParams(self, params):
 		self.params = params
@@ -24,10 +24,10 @@ class ZeRequest:
 		if paramKey in self.params:
 			return True
 		return False
-	def getParam(self, paramKey):
+	def getParam(self, paramKey, defaultVal=""):
 		if self.hasParam(paramKey):
 			return escape(self.params[paramKey]) # предохраняемся от инъекций
-		return ""
+		return defaultVal
 
 	def setPath(self, pathStr):
 		self.path = pathStr
