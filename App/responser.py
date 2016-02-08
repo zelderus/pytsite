@@ -117,6 +117,7 @@ def createResponseHtml(serverWithoutFile, response, request):
 		return
 	# Action Do
 	if action:
+		controller.globalActionDo()
 		action()
 
 

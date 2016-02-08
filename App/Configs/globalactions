@@ -1,0 +1,5 @@
+# global actions for each Controller Action
+# every Action in Controller do it(function name) automaticaly
+# if function is not present in Controller (or Base), then nothing
+
+doMainMenu

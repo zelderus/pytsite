@@ -12,15 +12,15 @@ class BaseController(sitetypes.ZeController):
 		self.data = []
 
 
-	def getMenuModel(self, model=None):
-		if model == None:
-			model = dict()
+	#
+	# Globals (for helpers)
+	#
+	def doMainMenu(self):
 		request = self.getRequest()
 		url = request.getPath()
-		model["menu_main_class"] = ("current" if url == "/" else "")
-		model["menu_help_class"] = ("current" if url == "/help" else "")
-		model["menu_test_class"] = ("current" if url == "/test" else "")
-		return model
+		self.addToModel("menu_main_class", ("current" if url == "/" else ""))
+		self.addToModel("menu_help_class", ("current" if url == "/help" else ""))
+		self.addToModel("menu_test_class", ("current" if url == "/test" else ""))
 
 
 
@@ -28,8 +28,7 @@ class BaseController(sitetypes.ZeController):
 		response = self.getResponse()
 		request = self.getRequest()
 		response.setTitle("ZeSite")
-		model = self.getMenuModel()
-		self.view("show", model)
+		self.view("show")
 		
 
 
@@ -37,14 +36,12 @@ class BaseController(sitetypes.ZeController):
 		response = self.getResponse()
 		request = self.getRequest()
 		response.setTitle("ZeSite. Help")
-		model = self.getMenuModel()
-		self.view("help", model)
+		self.view("help")
 
 
 	def about(self):
 		response = self.getResponse()
 		request = self.getRequest()
 		response.setTitle("ZeSite. About")
-		model = self.getMenuModel()
-		self.view("about", model)
+		self.view("about")
 

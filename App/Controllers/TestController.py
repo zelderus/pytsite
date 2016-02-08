@@ -20,9 +20,10 @@ class TestController(BaseController):
 		response.setTitle("ZeSite. Test")
 		# get param
 		p1 = request.getParam("p1")
-		model = self.getMenuModel()
+		model = dict()
 		model["p1"] = p1
-		model["modelVal1"] = "just simple"
+		self.addToModel("modelVal1", "just simple global")
+		model["modelVal1"] = "just simple page"
 
 		# show
 		self.view("show", model)

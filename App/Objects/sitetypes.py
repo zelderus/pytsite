@@ -14,6 +14,7 @@ class ZeController:
 		self.request = request
 		self.response = response
 		self._model = None
+		self._mainModel = dict()
 		self._controller = "Base"
 
 
@@ -23,6 +24,31 @@ class ZeController:
 	def getResponse(self):
 		return self.response
 
+	def addToModel(self, keyName, obj):
+		self._mainModel[keyName] = obj
+
+
+	#
+	# Global Actions (for ViewHelpers)
+	#
+	def globalActionDo(self):
+		acts = []
+		actaddr = None
+		with open(self.response.getAppPath() + "/Configs/globalactions", 'r') as gFile:
+			fcc = gFile.readlines()
+			for fline in fcc:
+				fline = fline.replace("\n", "")
+				if zehelpers.isNotNullOrEmpty(fline) == True and fline.startswith("#") == False:
+					acts.append(fline)
+		for actname in acts:
+			actaddr = None
+			try:
+				actaddr = getattr(self, actname)
+			except AttributeError as e:
+				s = 0
+			if actaddr != None:
+				actaddr()
+		return
 
 
 	#
@@ -34,10 +60,10 @@ class ZeController:
 		return self._zrGetModelValue(self._model, matchobj.group(1))
 	# значение из модели
 	def _zrGetModelValue(self, model, valName):
-		if model == None or model.__class__.__name__ != "dict":
-			return ""
-		if valName in model:
+		if model != None and model.__class__.__name__ == "dict" and valName in model:
 			return model[valName]
+		if valName in self._mainModel:
+			return self._mainModel[valName]
 		return ""
 	# парсилка строки Вьюшки
 	def _zrParseLine(self, lineStr, model):
