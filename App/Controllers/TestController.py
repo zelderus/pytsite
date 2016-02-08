@@ -1,15 +1,14 @@
 
 import Objects.sitetypes as sitetypes
-
-
+from Controllers import BaseController
 
 #
 #	Test
 #	каждый контроллер должен быть прописан в __init.py__
 #
-class TestController(sitetypes.ZeController):
+class TestController(BaseController):
 	def __init__(self, request, response):
-		sitetypes.ZeController.__init__(self, request, response)
+		BaseController.__init__(self, request, response)
 		self.data = []
 
 
@@ -21,7 +20,11 @@ class TestController(sitetypes.ZeController):
 		response.setTitle("ZeSite. Test")
 		# get param
 		p1 = request.getParam("p1")
+		model = self.getMenuModel()
+		model["p1"] = p1
+		model["modelVal1"] = "just simple"
+
 		# show
-		self.view("show", dict(p1=p1, modelVal1="just simple"))
+		self.view("show", model)
 
 

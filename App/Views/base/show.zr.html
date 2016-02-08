@@ -2,13 +2,7 @@
 
 <h1>Main page</h1>
 
-
-<div class="navi">
-	<a class="current" href="/">Main</a>
-#	<a href="/help">Help</a>
-	<a href="/test?p1=12345">Test1</a>
-</div>
-
+@view("menu")
 
 <h3>Цель</h3>
 <div>
@@ -27,7 +21,9 @@
 		<li>Контроллеры создаются каждый свой в папке Controllers</li>
 		<li>Контроллеры прописываются в файле 'Controllers/__init.py__'</li>
 		<li>Добавляются маршруты в файл 'Configs/routes'</li>
-		<li>Вьюшки кладутся в 'Views/{controllername}/{actionname}.zr.html' (название Контроллера без слова 'Controller' на конце)</li>
+		<li>Вьюшки кладутся в 'Views/{controllername}/{actionname}.zr.html' (название Контроллера без слова 'Controller' на конце), либо в корне Views/</li>
 		<li>Во вьюшках можно использовать значение из моделей <span style='font-weight: bold;color: #777;'>'SomeValue = <span style='color: #111;'>@{ value1 }</span>'</span> (без пробелов)</li>
+		<li>Во вьюшках можно использовать частичные Вьюшки <span style='font-weight: bold;color: #111;'>@view( "menu" )</span> (без пробелов).</li>
+		<li>Частичные вьюшки лежат также как обычные и используют туже модель на странице.</li>
 	</ul>
 </div>
