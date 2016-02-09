@@ -21,11 +21,11 @@
 		<li>Контроллеры создаются каждый свой в папке Controllers</li>
 		<li>Контроллеры прописываются в файле 'Controllers/__init.py__'</li>
 		<li>Добавляются маршруты в файл 'Configs/routes'</li>
-		<li>'Configs/globalactions' - add Function name for action on each Action</li>
+		<li>В файле 'Configs/globalactions' прописываются названия функций для выполнения перед каждым Action-методом</li>
 		<li>Вьюшки кладутся в 'Views/{controllername}/{actionname}.zr.html' (название Контроллера без слова 'Controller' на конце), либо в корне Views/</li>
 		<li>Во вьюшках можно использовать значение из моделей <span style='font-weight: bold;color: #777;'>'SomeValue = <span style='color: #111;'>@{ value1 }</span>'</span> (без пробелов)</li>
 		<li>Во вьюшках можно использовать частичные Вьюшки <span style='font-weight: bold;color: #111;'>@view( "menu" )</span> (без пробелов).</li>
 		<li>Частичные вьюшки лежат также как обычные и используют туже модель на странице.</li>
-		<li>Model. In Action method use 'self.addToModel(key, obj)' to add an object to a global model (use in View)</li>
+		<li>Модель. В Action используйте 'self.addToModel(key, obj)' для добавления объекта в глобальную модель (используется во Вьюшке и Чаcтичных).</li>
 	</ul>
 </div>

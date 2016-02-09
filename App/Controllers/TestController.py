@@ -20,6 +20,7 @@ class TestController(BaseController):
 		response.setTitle("ZeSite. Test")
 		# get param
 		p1 = request.getParam("p1")
+		# model (best use global model 'self.addToModel()')
 		model = dict()
 		model["p1"] = p1
 		self.addToModel("modelVal1", "just simple global")

@@ -20,8 +20,12 @@
 			<div>response.setTitle("<span class='text'>ZeSite. Test</span>")</div>
 			<div><span class='comment'># get param</span></div>
 			<div>p1 = request.getParam("<span class='text'>p1</span>")</div>
+			<div><span class='comment'># model (best use global model 'self.addToModel()')</span></div>
+			<div>model = dict()</div>
+			<div>model["<span class='text'>p1</span>"] = p1</div>
+			<div><span class='self'>self</span>.addToModel("<span class='text'>modelVal1</span>", "<span class='text'>just simple global</span>")</div>
 			<div><span class='comment'># show</span></div>
-			<div><span class='self'>self</span>.view("<span class='text'>show</span>", dict(p1=p1, modelVal1="<span class='text'>just simple</span>"))</div>
+			<div><span class='self'>self</span>.view("<span class='text'>show</span>", model)</div>
 		</div>
 </div>
 
